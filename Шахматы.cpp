@@ -6,8 +6,6 @@
 
 using namespace std;
 
-
-
 int obrch(int a) {
 	int viv;
 	for (int i = 7; i >= 0; --i)
@@ -235,203 +233,239 @@ int main()
 	SetConsoleCP(1251);
 	setlocale(LC_ALL, "Rus");
 
-
-	int arr[8][8];
-	for (int i = 0; i < 8; ++i)
+	while (true)
 	{
-		for (int j = 0; j < 8; ++j)
+		int arr[8][8];
+		for (int i = 0; i < 8; ++i)
 		{
-			if (i % 2 != 0 and j % 2 == 0)
+			for (int j = 0; j < 8; ++j)
 			{
-				arr[i][j] = 1;
+				if (i % 2 != 0 and j % 2 == 0)
+				{
+					arr[i][j] = 1;
+				}
+				if (i % 2 != 0 and j % 2 != 0)
+				{
+					arr[i][j] = 0;
+				}
+				if (i % 2 == 0 and j % 2 == 0)
+				{
+					arr[i][j] = 0;
+				}
+				if (i % 2 == 0 and j % 2 != 0)
+				{
+					arr[i][j] = 1;
+				}
+				//cout << arr[i][j]<<"\t";
 			}
-			if (i % 2 != 0 and j % 2 != 0)
-			{
-				arr[i][j] = 0;
-			}
-			if (i % 2 == 0 and j % 2 == 0)
-			{
-				arr[i][j] = 0;
-			}
-			if (i % 2 == 0 and j % 2 != 0)
-			{
-				arr[i][j] = 1;
-			}
-			//cout << arr[i][j]<<"\t";
-		}
-		//cout << endl << endl;
-	}
-
-	cout << "Добро пожаловать в программу по расчету ходов в игре шахматы!" << "\n" <<
-		"Вам необходимо корректно вводить запрашиваемые данные." << "\n" <<
-		"Буква клетки от A до H английского языка.Её номер от 1 до 8" << "\n" <<
-		"Название фигуры должно соответствовать предложенным вариантам. Адрес клетки вводится без пробелов!" << endl << endl;
-
-	string kl1, kl2, tip;
-	int pb1, vb1, pb2, vb2;
-	cout << "Введите адрес первой фигуры: ";
-	cin >> kl1;
-
-	cout << "Укажите тип фигуры (ладья / конь / слон / ферзь): ";
-	cin >> tip;
-
-	cout << "Введите адрес второй фигуры: ";
-	cin >> kl2;
-
-
-	vb1 = int(kl1[1] - '0');
-	vb2 = int(kl2[1] - '0');
-
-
-	for (int i = 1; i < 9; ++i)
-	{
-		if (vb1 == i) {
-			vb1 = 8 - i;
-			break;
+			//cout << endl << endl;
 		}
 
-	}
+		cout << "Добро пожаловать в программу по расчету ходов в игре шахматы!" << "\n" <<
+			"Вам необходимо корректно вводить запрашиваемые данные." << "\n" <<
+			"Буква клетки от A до H английского языка. Её номер от 1 до 8" << "\n" <<
+			"Название фигуры должно соответствовать предложенным вариантам. Адрес клетки вводится без пробелов!" << endl << endl;
 
-	for (int i = 1; i < 9; ++i)
-	{
-		if (vb2 == i) {
-			vb2 = 8 - i;
-			break;
-		}
-	}
+		string kl1, kl2, tip;
+		bukva pol;
+		int pb1, vb1, pb2, vb2;
+		cout << "Введите адрес первой фигуры: ";
+		cin >> kl1;
 
+		
+		pb1 = pol.buk(kl1[0]);
 
-	bukva pol;
-	pb1 = pol.buk(kl1[0]);
-	pb2 = pol.buk(kl2[0]);
-
-
-	string cv1, cv2;
-
-	if (arr[pb1][vb1] == 1)
-	{
-		cv1 = "Белый";
-	}
-	else
-	{
-		cv1 = "Черный";
-	}
-
-	if (arr[pb2][vb2] == 1)
-	{
-		cv2 = "Белый";
-	}
-	else
-	{
-		cv2 = "Черный";
-	}
-
-	if (cv1 == cv2)
-	{
-		cout << endl << "Клетки одного цвета" << endl;
-	}
-	else
-	{
-		cout << endl << "Клетки разного цвета" << endl;
-	}
-
-	cout << endl << "Цвет клетки, на которой стоит первая фигура: " << cv1 << endl;
-	cout << "Цвет клетки, на которой стоит вторая фигура: " << cv2 << endl << endl;
-
-	if (tip == "ладья")
-	{
-		ladya hod;
-		int xk;
-		int yk;
-		obrb bk;
-		hod.lad(pb1, vb1, pb2, vb2, xk, yk);
-
-		if (xk == -2)
+		if (pb1 < 0 or pb1 > 7)
 		{
-			cout << "Угроза уже существует!" << endl;
+			cout << "Введённая буква первой фигуры некорректна" << endl << endl;
+			continue;
 		}
-		else
+
+		vb1 = int(kl1[1] - '0');
+
+		if (vb1 < 1 or vb1 > 8)
 		{
-			cout << "Нужно переместить ладью на клетку " << bk.buko(xk) << obrch(yk) << endl;
+			cout << "Введённая цифра первой фигуры некорректна" << endl << endl;
+			continue;
+		}
+
+		cout << "Укажите тип фигуры (ладья / конь / слон / ферзь): ";
+		cin >> tip;
+
+		if (tip != "ладья" && tip != "конь" && tip != "слон" && tip != "ферзь")
+		{
+			cout << "Введённая фигура некорректна" << endl << endl;
+			continue;
+		}
+
+		cout << "Введите адрес второй фигуры: ";
+		cin >> kl2;
+
+		pb2 = pol.buk(kl2[0]);
+
+		if (pb2 < 0 or pb2 > 7)
+		{
+			cout << "Введённая буква второй фигуры некорректна" << endl << endl;
+			continue;
+		}
+
+		vb2 = int(kl2[1] - '0');
+
+		if (vb2 < 1 or vb2 > 8)
+		{
+			cout << "Введённая цифра второй фигуры некорректна" << endl << endl;
+			continue;
 		}
 		
-	}
-
-	if (tip == "конь")
-	{
-		Kon hod;
-		int xk;
-		int yk;
-
-		obrb bk;
-		hod.koni(pb1, vb1, pb2, vb2, xk, yk);
-
-		if (xk == -2)
+		if (pb1 == pb2 && vb1 == vb2)
 		{
-			cout << "Угроза уже существует!" << endl;
+			cout << "Фигуры не могут находится на одной клетке" << endl << endl;
+			continue; 
+		}
+
+
+		for (int i = 1; i < 9; ++i)
+		{
+			if (vb1 == i) {
+				vb1 = 8 - i;
+				break;
+			}
+
+		}
+
+		for (int i = 1; i < 9; ++i)
+		{
+			if (vb2 == i) {
+				vb2 = 8 - i;
+				break;
+			}
+		}
+
+		string cv1, cv2;
+
+		if (arr[pb1][vb1] == 1)
+		{
+			cv1 = "Белый";
 		}
 		else
 		{
-			if (xk == -1)
+			cv1 = "Черный";
+		}
+
+		if (arr[pb2][vb2] == 1)
+		{
+			cv2 = "Белый";
+		}
+		else
+		{
+			cv2 = "Черный";
+		}
+
+		if (cv1 == cv2)
+		{
+			cout << endl << "Клетки одного цвета" << endl;
+		}
+		else
+		{
+			cout << endl << "Клетки разного цвета" << endl;
+		}
+
+		cout << endl << "Цвет клетки, на которой стоит первая фигура: " << cv1 << endl;
+		cout << "Цвет клетки, на которой стоит вторая фигура: " << cv2 << endl << endl;
+
+		if (tip == "ладья")
+		{
+			ladya hod;
+			int xk;
+			int yk;
+			obrb bk;
+			hod.lad(pb1, vb1, pb2, vb2, xk, yk);
+
+			if (xk == -2)
 			{
-				cout << "Нет возможных комбинаций для коня" << endl;
+				cout << "Угроза уже существует!" << endl;
 			}
 			else
 			{
-				cout << "Нужно переместить коня на клетку " << bk.buko(xk) << obrch(yk) << endl;
+				cout << "Нужно переместить ладью на клетку " << bk.buko(xk) << obrch(yk) << endl;
 			}
+
 		}
 
-
-	}
-
-	if (tip == "слон")
-	{
-		Slon hod;
-		int xk;
-		int yk;
-
-		obrb bk;
-		hod.slo(pb1, vb1, pb2, vb2, xk, yk);
-
-
-		if (xk == -2)
+		if (tip == "конь")
 		{
-			cout << "Угроза уже существует!" << endl;
-		}
-		else
-		{
-			if (cv1 != cv2)
+			Kon hod;
+			int xk;
+			int yk;
+
+			obrb bk;
+			hod.koni(pb1, vb1, pb2, vb2, xk, yk);
+
+			if (xk == -2)
 			{
-				cout << "Нет возможных комбинаций для слона" << endl;
+				cout << "Угроза уже существует!" << endl;
 			}
 			else
 			{
-				cout << "Нужно переместить слона на клетку " << bk.buko(xk) << obrch(yk) << endl;
+				if (xk == -1)
+				{
+					cout << "Нет возможных комбинаций для коня" << endl;
+				}
+				else
+				{
+					cout << "Нужно переместить коня на клетку " << bk.buko(xk) << obrch(yk) << endl;
+				}
+			}
+
+
+		}
+
+		if (tip == "слон")
+		{
+			Slon hod;
+			int xk;
+			int yk;
+
+			obrb bk;
+			hod.slo(pb1, vb1, pb2, vb2, xk, yk);
+
+
+			if (xk == -2)
+			{
+				cout << "Угроза уже существует!" << endl;
+			}
+			else
+			{
+				if (cv1 != cv2)
+				{
+					cout << "Нет возможных комбинаций для слона" << endl;
+				}
+				else
+				{
+					cout << "Нужно переместить слона на клетку " << bk.buko(xk) << obrch(yk) << endl;
+				}
 			}
 		}
 
-
-
-	}
-
-	if (tip == "ферзь")
-	{
-		Ferz hod;
-		int xk;
-		int yk;
-
-		obrb bk;
-		hod.fer(pb1, vb1, pb2, vb2, xk, yk);
-
-		if (xk == -2)
+		if (tip == "ферзь")
 		{
-			cout << "Угроза уже существует!" << endl;
-		}
-		else
-		{
-			cout << "Нужно переместить ферзя на клетку " << bk.buko(xk) << obrch(yk) << endl;
-		}
-	}
+			Ferz hod;
+			int xk;
+			int yk;
 
+			obrb bk;
+			hod.fer(pb1, vb1, pb2, vb2, xk, yk);
+
+			if (xk == -2)
+			{
+				cout << "Угроза уже существует!" << endl;
+			}
+			else
+			{
+				cout << "Нужно переместить ферзя на клетку " << bk.buko(xk) << obrch(yk) << endl;
+			}
+		}
+		break;
+	}
+		
 }
